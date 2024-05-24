@@ -25,7 +25,6 @@ export default function SignupForm() {
     e.preventDefault();
     startMutation(async () => {
       const res = await register(formState);
-      console.log({ res });
       if (res.error) {
         alert(JSON.stringify(res.error));
         return;
@@ -36,11 +35,8 @@ export default function SignupForm() {
   return (
     <div className="signupformcontainer h-screen flex justify-center items-center ">
       <div className="container max-w-fit h-auto flex  items-center gap-16 border-2 pt-10 pb-10 bg-white">
-        <div className="w-full">
+        <div className="w-full " >
           <div>
-            <a href="/">
-              {/* <img src="/moneymaster.png" className="mb-3 " /> */}
-            </a>
             <h1 className="text-2xl font-black text-[#22577A] mb-6">Sign Up</h1>
             <p className="w-5/6 mb-10 text-[#6C7278]">
               Fill your information below or register using your social account.

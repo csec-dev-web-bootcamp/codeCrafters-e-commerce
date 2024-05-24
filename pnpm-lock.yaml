@@ -11,6 +11,12 @@ importers:
       '@prisma/client':
         specifier: ^5.13.0
         version: 5.13.0(prisma@5.13.0)
+      express:
+        specifier: ^4.19.2
+        version: 4.19.2
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       pnpm:
         specifier: ^9.1.0
         version: 9.1.0

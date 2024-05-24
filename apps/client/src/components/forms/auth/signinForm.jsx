@@ -20,7 +20,6 @@ export default function SigninForm() {
     e.preventDefault();
     startMutation(async () => {
       const res = await login(formState);
-      console.log({ res });
       if (res.error) {
         alert(JSON.stringify(res.error));
         return;

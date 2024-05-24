@@ -18,7 +18,6 @@ export async function login(formData) {
     }
     return { user: data.user };
   } catch (error) {
-    console.log({ error });
     const data = error.response?.data;
     return { error: data || "Unknow error" };
   }
@@ -28,7 +27,6 @@ export async function register(formData) {
   const cookieStore = cookies();
   try {
     const res = await axios.post(server_host + "/auth/register", formData);
-    console.log({ res });
     const data = res.data;
     if (data.user && data.jwt) {
       cookieStore.set({
@@ -39,8 +37,14 @@ export async function register(formData) {
     }
     return { user: data.user };
   } catch (error) {
-    console.log({ error });
     const data = error.response?.data;
     return { error: data || "Unknow error" };
   }
+}
+
+
+export async function logout() {
+  const cookieStore = cookies();
+  console.log("logouted");
+  cookieStore.delete("accessToken");
 }

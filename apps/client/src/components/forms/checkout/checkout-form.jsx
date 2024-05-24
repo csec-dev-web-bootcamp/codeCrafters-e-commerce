@@ -28,7 +28,6 @@ export default function CheckoutForm() {
       content: "",
     },
   });
-  console.log({ isMutating });
   function onSubmit(values) {
     startMutation(async () => {
       const result = await createPost(values);

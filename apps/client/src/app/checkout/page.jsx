@@ -5,7 +5,6 @@ import { useCheckout } from "@app/client/stores/checkoutStore";
 
 export default function Checkout() {
   const check = useCheckout();
-  console.log(check);
   const totalPrice = check.checkoutProducts.reduce((total, product) => {
     return total + product.totalPrice;
   }, 0);

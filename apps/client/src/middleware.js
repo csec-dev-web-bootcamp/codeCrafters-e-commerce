@@ -22,7 +22,6 @@ export async function middleware(request) {
 
   const isHomePath = homeRoutes.find((route) => pathname === route);
 
-  console.log({ isHomePath });
   const isProtectedPath = protectedRoutes.find((route) =>
     pathname.startsWith(route)
   );
@@ -39,8 +38,7 @@ export async function middleware(request) {
       }
       return NextResponse.redirect(new URL("/", request.url));
     }
-    console.log({ isAuthPath });
-    if (isHomePath && roleRoutes.includes(userRolePath)) {
+    if ((isHomePath||isAuthPath) && roleRoutes.includes(userRolePath)) {
       return NextResponse.redirect(new URL(userRolePath, request.url));
     } else if (isAuthPath) {
       return NextResponse.redirect(new URL("/", request.url));
