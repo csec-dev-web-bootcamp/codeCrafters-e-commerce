@@ -54,6 +54,12 @@ export default function SideNavbar() {
             icon: ShoppingCart,
             variant: "ghost",
           },
+          {
+            title: "Products",
+            href: "/admin/products",
+            icon: ShoppingCart,
+            variant: "ghost",
+          },
 
           {
             title: "Setting",
