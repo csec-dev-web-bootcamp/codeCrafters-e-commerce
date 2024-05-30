@@ -11,9 +11,11 @@ import { useCart } from "@app/client/stores/cart-store";
 import { Button } from "../ui/button";
 import { useMemo } from "react";
 
+import ProductDetail from "./product-detail";
+
 export default function ProductCard({ product }) {
   const cart = useCart();
-  
+
   const isAdded = useMemo(() => {
     return cart.cartProducts.find((prod) => prod.id === product.id);
   }, [cart.cartProducts]);
@@ -21,19 +23,19 @@ export default function ProductCard({ product }) {
   return (
     <Card>
       <div className="w-full aspect-w-16 aspect-h-8 lg:h-80">
-            <img
-              src={product.url}
-              alt="slow internet connection"
-              className="h-full w-full object -cover object-top"
-            />
-          </div>
+        <img
+          src={product.url}
+          alt="slow internet connection"
+          className="h-full w-full object -cover object-top"
+        />
+      </div>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
       </CardHeader>
       <CardContent>
         <p>{product.price}</p>
       </CardContent>
-      <CardFooter className="space-x-2">
+      <CardFooter className="space-x-2 sm:flex max-sm:flex-col gap-2 ">
         <Button
           onClick={() =>
             isAdded ? cart.removeFromCart(product.id) : cart.addToCart(product)
@@ -41,6 +43,9 @@ export default function ProductCard({ product }) {
         >
           {isAdded ? "remove from cart" : "add to cart"}
         </Button>
+        
+            <ProductDetail product={product}/>
+          
       </CardFooter>
     </Card>
   );

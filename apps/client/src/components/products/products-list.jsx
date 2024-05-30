@@ -3,7 +3,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
-
 const products = [
   {
     id: 1,
@@ -72,25 +71,10 @@ const products = [
 ];
 
 import ProductCard from "./product-card";
+import ProductDetail from "./product-detail";
 export default async function ProductsList() {
   return (
     <div className="grid grid-cols-4 gap-4">
-      {/* {products.map((product) => (
-        <HoverCard>
-        <HoverCardTrigger className="bg-slate-300">
-          {<ProductCard key={product.id} product={product}/>}
-        </HoverCardTrigger>
-        <HoverCardContent className='bg-slate-50 bg-opacity-95'>
-          <header className="font-bold text-slate-700">
-            product detail
-          </header>
-          <p className="text-slate-500">
-            {product.description}
-          </p>
-        </HoverCardContent>
-      </HoverCard>
-      ))} */}
-
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
