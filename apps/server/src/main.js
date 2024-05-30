@@ -7,6 +7,7 @@ import productsController from "./products/products.controller.js";
 import usersController from "./users/users.controller.js";
 import { httpExceptionHandler } from "./middlewares/http-exception-handler.js";
 import authController from "./auth/auth.controller.js";
+import categoriesController from "./categories/categories.controller.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/categories", categoriesController);
 app.use("/products", productsController);
 app.use("/auth", authController);
 app.use("/users", usersController);
