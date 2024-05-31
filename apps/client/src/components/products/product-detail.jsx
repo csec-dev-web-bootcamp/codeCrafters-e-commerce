@@ -9,6 +9,9 @@ import { useCart } from "@app/client/stores/cart-store";
 
 import { useMemo } from "react";
 import { ScrollArea } from "../ui/scroll-area";
+import { Button, buttonVariants } from "../ui/button";
+import { cn } from "@app/client/lib/utils";
+import { EyeOpenIcon, ResetIcon } from "@radix-ui/react-icons";
 function ProductDetail({ product }) {
   const cart = useCart();
 
@@ -18,7 +21,22 @@ function ProductDetail({ product }) {
 
   return (
     <Sheet>
-      <SheetTrigger className="relative">detail</SheetTrigger>
+      <SheetTrigger className="relative">
+        <Button
+          href={`/preview/product/${product.id}`}
+          title="Preview"
+          className={cn(
+            buttonVariants({
+              variant: "secondary",
+              size: "icon",
+              className: "h-8 w-8 shrink-0",
+            })
+          )}
+        >
+          <ResetIcon className="size-4" aria-hidden="true" />
+          <span className="sr-only">Preview</span>
+        </Button>
+      </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <ScrollArea className="h-[calc(100vh_-_8rem)] pe-3">
@@ -35,60 +53,59 @@ function ProductDetail({ product }) {
                   </div>
 
                   <div>
-                    <h2 class="text-2xl font-extrabold text-gray-800">
-                      {product.name}
-                    </h2>
-                    <div class="flex flex-wrap gap-4 mt-4">
-                      <p class="text-gray-800 text-xl font-bold">
-                        ${product.price - (2 * product.price) / 100}
-                      </p>
-                      <p class="text-gray-400 text-xl">
-                        <strike>${product.price}</strike>{" "}
-                        <span class="text-sm ml-1">Tax included</span>
-                      </p>
-                    </div>
+                    <div class="lg:col-span-2">
+                      <h2 class="text-2xl font-extrabold text-[#333]">
+                        {product.name}
+                      </h2>
+                      <div class="flex flex-wrap gap-4 mt-4">
+                        <p class="text-[#333] text-3xl font-bold">
+                          {product.price}
+                        </p>
+                      </div>
 
-                    <div class="flex space-x-2 mt-4">
-                      <svg
-                        class="w-5 fill-gray-800"
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                      </svg>
-                      <svg
-                        class="w-5 fill-gray-800"
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                      </svg>
-                      <svg
-                        class="w-5 fill-gray-800"
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                      </svg>
-                      <svg
-                        class="w-5 fill-gray-800"
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                      </svg>
-                      <svg
-                        class="w-5 fill-[#CED5D8]"
-                        viewBox="0 0 14 13"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                      </svg>
+                      {/* <div class="flex space-x-2 mt-4">
+                        <svg
+                          class="w-5 fill-[#333]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#333]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#333]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#333]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg
+                          class="w-5 fill-[#CED5D8]"
+                          viewBox="0 0 14 13"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <h4 class="text-[#333] text-base">500 Reviews</h4>
+                      </div> */}
                     </div>
 
                     <div class="mt-8">
@@ -119,6 +136,14 @@ function ProductDetail({ product }) {
                           XL
                         </button>
                       </div>
+                      <div class="mt-8">
+                        <h3 class="text-lg font-bold text-gray-800">
+                          About the item
+                        </h3>
+                        <ul class="space-y-3 list-disc mt-4 text-base text-gray-800 mb-5">
+                          {product.description}
+                        </ul>
+                      </div>
                       <button
                         type="button"
                         className="w-full mt-4 px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white font-semibold rounded"
@@ -132,16 +157,7 @@ function ProductDetail({ product }) {
                       </button>
                     </div>
 
-                    <div class="mt-8">
-                      <h3 class="text-lg font-bold text-gray-800">
-                        About the item
-                      </h3>
-                      <ul class="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-800">
-                        {product.description}
-                      </ul>
-                    </div>
-
-                    <div class="mt-8 max-w-md">
+                    {/* <div class="mt-8 max-w-md">
                       <h3 class="text-lg font-bold text-gray-800">
                         Reviews(10)
                       </h3>
@@ -238,7 +254,7 @@ function ProductDetail({ product }) {
                       >
                         Read all reviews
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

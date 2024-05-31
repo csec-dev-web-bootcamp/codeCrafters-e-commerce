@@ -41,20 +41,26 @@ export default function ProductForm() {
     const response = await startMutation(async () => {
       try {
         const product = await createProduct(formState);
-
+        console.log(product);
         return product;
       } catch (error) {
         console.error("Error creating product:", error);
 
         return { error: error.message + "Valhala" };
       }
-    });
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    if (response.error) {
-      console.error("Error:", response.error);
-    } else {
-      console.error("Error:", response.error);
-    }
+    // if (response.error) {
+    //   console.error("Error:", response.error);
+    // } else {
+    //   console.error("Error:", response.error);
+    // }
   }
 
   return (

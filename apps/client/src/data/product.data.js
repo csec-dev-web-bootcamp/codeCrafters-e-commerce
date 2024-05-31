@@ -5,6 +5,8 @@ import revalidate from "./revalidate";
 
 export async function createProduct(data) {
   try {
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     const res = await fetcher(`/products`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -12,7 +14,6 @@ export async function createProduct(data) {
     });
 
     if (!res.ok) {
-      // Check for non-2xx HTTP status code
       throw new Error("Failed to create product: " + (await res.text())); // Provide a more informative error message
     }
 

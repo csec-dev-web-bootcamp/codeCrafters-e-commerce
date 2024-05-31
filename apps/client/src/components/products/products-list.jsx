@@ -104,7 +104,7 @@ export default async function ProductsList() {
       ))} */}
 
       {apidata.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductsCard key={product.id} product={product} />
       ))}
     </div>
   );
