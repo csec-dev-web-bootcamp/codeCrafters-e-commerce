@@ -8,6 +8,7 @@ import {
   deleteProduct,
   getManyProducts,
   getOneProduct,
+  getProductsByCategory,
   updateProduct,
 } from "./products.service";
 
@@ -39,6 +40,17 @@ productsController.get(
   asyncHandler(async (req, res) => {
     const { id } = req.params;
     const product = await getOneProduct(id);
+    return res.json(product);
+  })
+);
+
+productsController.get(
+  "/category/:id",
+  authGuard,
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    const product = await getProductsByCategory(id);
     return res.json(product);
   })
 );

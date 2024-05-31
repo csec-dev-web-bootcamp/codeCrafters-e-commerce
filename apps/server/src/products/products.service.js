@@ -31,6 +31,19 @@ export async function getOneProduct(id) {
   return product;
 }
 
+export async function getProductsByCategory(categoryId) {
+  const products = await prisma.product.findMany({
+    where: {
+      categoryId: categoryId,
+    },
+    include: {
+      category: true,
+    },
+  });
+
+  return products;
+}
+
 export async function updateProduct(id, data) {
   const product = await prisma.product.update({
     where: { id },
