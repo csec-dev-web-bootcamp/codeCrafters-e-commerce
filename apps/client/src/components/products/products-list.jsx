@@ -3,7 +3,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
-
 const products = [
   {
     id: 1,
@@ -72,6 +71,7 @@ const products = [
 ];
 
 import ProductCard from "./product-card";
+import { ProductsCard } from "./productCard";
 
 const getData = async () => {
   const res = await fetch("http://localhost:8000/products");

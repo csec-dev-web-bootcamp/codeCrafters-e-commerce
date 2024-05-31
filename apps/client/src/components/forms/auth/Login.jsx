@@ -27,8 +27,7 @@ export function Login() {
     startMutation(async () => {
       const res = await login(formState);
       if (res.error) {
-        alert(JSON.stringify(res.error));
-        return;
+        throw new Error(res.error.message);
       }
     });
   }

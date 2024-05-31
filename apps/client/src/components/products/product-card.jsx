@@ -11,6 +11,8 @@ import { useCart } from "@app/client/stores/cart-store";
 import { Button } from "../ui/button";
 import { useMemo } from "react";
 
+import ProductDetail from "./product-detail";
+
 export default function ProductCard({ product }) {
   const cart = useCart();
 
@@ -33,7 +35,7 @@ export default function ProductCard({ product }) {
       <CardContent>
         <p>{product.price}</p>
       </CardContent>
-      <CardFooter className="space-x-2">
+      <CardFooter className="space-x-2 sm:flex max-sm:flex-col gap-2 ">
         <Button
           onClick={() =>
             isAdded ? cart.removeFromCart(product.id) : cart.addToCart(product)
@@ -41,6 +43,8 @@ export default function ProductCard({ product }) {
         >
           {isAdded ? "remove from cart" : "add to cart"}
         </Button>
+
+        <ProductDetail product={product} />
       </CardFooter>
     </Card>
   );

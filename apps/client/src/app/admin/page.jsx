@@ -10,6 +10,8 @@ import BarChart from "@app/client/components/BarChart";
 import PageTitle from "@app/client/components/PageTitle";
 import Card, { CardContent } from "@app/client/components/Card";
 import SalesCard from "@app/client/components/SalesCard";
+import AdminHeader from "@app/client/components/admin/AdminHeader";
+import { getMe } from "@app/client/data/users";
 
 const cardData = [
   {
@@ -77,10 +79,12 @@ const getData = async () => {
 
 export default async function Home() {
   const data = await getData();
+  const user = await getMe();
 
   return (
     <div className="flex flex-col gap-5  w-full">
-      <PageTitle title="Dashboard" />
+      <AdminHeader user={user} />
+
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
         {cardData.map((d, i) => (
           <Card

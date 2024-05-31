@@ -21,7 +21,7 @@ import { useState } from "react";
 import { createProduct } from "@app/client/data/product.data";
 
 export default function ProductForm() {
-  //   const { isMutating, startMutation } = useMutation();
+  const { isMutating, startMutation } = useMutation();
   const [formState, setFormState] = useState({
     name: "",
     price: "",
@@ -35,32 +35,26 @@ export default function ProductForm() {
     setFormState((prev) => ({ ...prev, [id]: value }));
   };
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await fetch("http://localhost:8000/products", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formState),
-  //     });
+  async function onSubmit(e) {
+    e.preventDefault();
 
-  //     if (res.ok) {
-  //       console.log("Successfully registered", res);
-  //     } else {
-  //       console.error("Error registering product", res);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding product:", error);
-  //   }
-  // };
+    const response = await startMutation(async () => {
+      try {
+        const product = await createProduct(formState);
 
-  function onSubmit(formState) {
-    startMutation(async () => {
-      const result = await createProduct(formState);
-      form.reset();
+        return product;
+      } catch (error) {
+        console.error("Error creating product:", error);
+
+        return { error: error.message + "Valhala" };
+      }
     });
+
+    if (response.error) {
+      console.error("Error:", response.error);
+    } else {
+      console.error("Error:", response.error);
+    }
   }
 
   return (
@@ -140,7 +134,9 @@ export default function ProductForm() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Add Product</Button>
+            <Button type="submit" disabled={isMutating}>
+              Add Product
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

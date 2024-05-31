@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import { HttpException } from '../../common/http-exception';
+import jwt from "jsonwebtoken";
+import { HttpException } from "../../common/http-exception";
 
 export default function validateJwtToken(accessToken) {
   const secretKey = process.env.JWT_SECRETE_KEY;
@@ -7,6 +7,6 @@ export default function validateJwtToken(accessToken) {
     const decoded = jwt.verify(accessToken, secretKey);
     return decoded;
   } catch (error) {
-    throw new HttpException('Unauthorized', 403);
+    throw new HttpException("Unauthorized", 403);
   }
 }

@@ -42,15 +42,8 @@ const columns = [
   // },
 ];
 
-const getData = async () => {
-  const res = await getManyProducts();
-  if (res.error) {
-    return res.error;
-  }
-};
-
 export default async function Products({}) {
-  const products = await getData();
+  // const products = await getData();
 
   return (
     <div className="flex flex-col gap-5  w-full">
