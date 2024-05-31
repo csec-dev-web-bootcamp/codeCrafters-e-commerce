@@ -23,8 +23,8 @@ productsController.get(
 
 productsController.post(
   "/",
-  authGuard,
-  roleGuard(["CUSTOMER", "ADMIN"]),
+  // authGuard,
+  // roleGuard(["ADMIN"]),
   createProductPipe,
   asyncHandler(async (req, res) => {
     const data = req.body;

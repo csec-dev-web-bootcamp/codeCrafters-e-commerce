@@ -15,7 +15,7 @@ model User {
   lastName  String   @db.VarChar(100)
   email     String   @unique
   password  String   @db.VarChar(120)
-  role      UserRole @default(CUSTOMER)
+  role      UserRole @default(ADMIN)
   blocked   Boolean  @default(false)
 
   createdAt DateTime @default(now())
@@ -33,11 +33,12 @@ model Product {
   name        String      @db.VarChar(255)
   price       Float       @default(0)
   description String?     @db.Text
+  image       String?     
   category    Category?   @relation(fields: [categoryId], references: [id])
   categoryId  String?
   orderItems  OrderItem[]
 
-  @@map("prioducts")
+  @@map("products")
 }
 
 model Category {
