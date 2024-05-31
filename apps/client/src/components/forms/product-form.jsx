@@ -19,7 +19,7 @@ import { Textarea } from "../ui/textarea";
 import useMutation from "@app/client/hooks/use-mutation";
 import { createProduct } from "@app/client/data/product.data";
 
-export default function ProductForm() {
+export default function ProductsForm() {
   const { startMutation, isMutating } = useMutation();
   const form = useForm({
     resolver: zodResolver(createProductSchema),
@@ -70,9 +70,7 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" >
-          {isMutating ? "Submitting..." : "Submit"}
-        </Button>
+        <Button type="submit">{isMutating ? "Submitting..." : "Submit"}</Button>
       </form>
     </Form>
   );

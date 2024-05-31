@@ -1,11 +1,22 @@
-'use client'
+"use client";
 import React from "react";
 import Cart from "./cart";
 import Link from "next/link";
 import useMutation from "@app/client/hooks/use-mutation";
-import {logout} from "@app/client/data/auth"
+import { logout } from "@app/client/data/auth";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@app/client/components/ui/dropdown-menu";
+import { Button } from "@app/client/components/ui/button";
+import Image from "next/image";
 export default function Navbar({ user }) {
-  const {startMutation} = useMutation()
+  const { startMutation } = useMutation();
   return (
     <header className="sticky top-0 flex shadow-md py-4 px-4 sm:px-10 bg-white font-sans min-h-[70px] tracking-wide  z-50">
       <div className="flex flex-wrap items-center justify-between gap-4 w-full">
@@ -65,23 +76,7 @@ export default function Navbar({ user }) {
         </div>
 
         <div className="flex items-center max-lg:ml-auto space-x-5">
-          {user ? (
-            <button onClick={()=>{
-
-              startMutation(async ()=>{
-                await logout()
-              })
-            }} className="bg-blue-500 hover:bg-blueblack-700 text-white font-bold py-2 px-4 rounded">
-              Logout
-            </button>
-          ) : (
-            <Link href="/signup">
-              <button className="bg-blue-500 hover:bg-blueblack-700 text-white font-bold py-2 px-4 rounded">
-                Sign Up
-              </button>
-            </Link>
-          )}
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20px"
             height="20px"
@@ -93,7 +88,57 @@ export default function Navbar({ user }) {
               d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
               data-original="#000000"
             />
-          </svg>
+          </svg> */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <Image
+                  src="/placeholder-user.jpg"
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link href="/profile">profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                {user ? (
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      startMutation(async () => {
+                        await logout();
+                      });
+                    }}
+                    className="  text-center font-bold py-2 px-4 rounded"
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Link href="/signup">
+                    <Button
+                      variant="ghost"
+                      className="  text-center font-bold py-2 px-4 rounded"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           {/* cart section*/}
           <Cart />
         </div>

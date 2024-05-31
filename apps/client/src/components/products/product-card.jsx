@@ -13,7 +13,7 @@ import { useMemo } from "react";
 
 export default function ProductCard({ product }) {
   const cart = useCart();
-  
+
   const isAdded = useMemo(() => {
     return cart.cartProducts.find((prod) => prod.id === product.id);
   }, [cart.cartProducts]);
@@ -21,12 +21,12 @@ export default function ProductCard({ product }) {
   return (
     <Card>
       <div className="w-full aspect-w-16 aspect-h-8 lg:h-80">
-            <img
-              src={product.url}
-              alt="slow internet connection"
-              className="h-full w-full object -cover object-top"
-            />
-          </div>
+        <img
+          src={product.image}
+          alt="slow internet connection"
+          className="h-full w-full object -cover object-top"
+        />
+      </div>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
       </CardHeader>

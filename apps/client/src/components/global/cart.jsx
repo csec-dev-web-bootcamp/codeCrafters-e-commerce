@@ -17,6 +17,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 import { cn } from "@app/client/lib/utils";
+import { Icons } from "../icons";
 
 export default function Cart() {
   const cart = useCart();
@@ -24,7 +25,20 @@ export default function Cart() {
   return (
     <Sheet>
       <SheetTrigger className="relative">
-        <span>
+        <Button
+          aria-label="Open cart"
+          variant="outline"
+          size="icon"
+          className="relative"
+        >
+          {cart.cartProducts.length > 0 && (
+            <span className="absolute bg-red-500 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full px-2">
+              {cart.cartProducts.length}
+            </span>
+          )}
+          <Icons.cart className="size-4" aria-hidden="true" />
+        </Button>
+        {/* <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20px"
@@ -37,12 +51,7 @@ export default function Cart() {
               data-original="#000000"
             ></path>
           </svg>
-        </span>
-        {cart.cartProducts.length > 0 && (
-          <span className="absolute bg-red-500 top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full px-2">
-            {cart.cartProducts.length}
-          </span>
-        )}
+        </span> */}
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

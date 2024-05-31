@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
 // import Card, { CardContent, CardProps } from "@app/components/Card";
-// import BarChart from "@/components/BarChart";
+// import BarChart from "@app/client/components/BarChart";
 // import SalesCard, { SalesProps } from "@app/components/SalesCard";
 import BarChart from "@app/client/components/BarChart";
 import PageTitle from "@app/client/components/PageTitle";

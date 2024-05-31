@@ -18,6 +18,9 @@ import React from "react";
 import PageTitle from "../../../components/PageTitle";
 import { Button } from "@app/client/components/ui/button";
 import { getRequestMeta } from "next/dist/server/request-meta";
+import Image from "next/image";
+import ProductForm from "@app/client/components/forms/product/productForm";
+import { getManyProducts } from "@app/client/data/product.data";
 
 const columns = [
   {
@@ -33,30 +36,28 @@ const columns = [
     header: "Price",
   },
 
-  {
-    accessorKey: "category.name",
-    header: "Category",
-  },
+  // {
+  //   accessorKey: "category.name",
+  //   header: "Category",
+  // },
 ];
 
 const getData = async () => {
-  const res = await fetch("http://localhost:8000/products");
-
-  if (!res.ok) {
-    throw new Error("failed to fetch user data");
+  const res = await getManyProducts();
+  if (res.error) {
+    return res.error;
   }
-
-  return res.json();
 };
 
-export default async function SettingsPage({}) {
-  const apidata = await getData();
+export default async function Products({}) {
+  const products = await getData();
 
   return (
     <div className="flex flex-col gap-5  w-full">
-      <PageTitle title="Settings" />
-      <Button className="w-3/12">ADD Products</Button>
-      <DataTable columns={columns} data={apidata} />
+      <PageTitle title="Products" />
+      {/* <ProductsForm /> */}
+      <ProductForm />
+      {/* <DataTable columns={columns} data={products} />{" "} */}
     </div>
   );
 }

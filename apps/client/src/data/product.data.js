@@ -4,15 +4,18 @@ import fetcher from "./fetcher";
 import revalidate from "./revalidate";
 
 export async function createProduct(data) {
-  const res = fetcher(`/products`, {
-    method: "PRODUCT",
+  const res = await fetcher(`/products`, {
+    method: "POST",
     body: JSON.stringify(data),
     next: { tags: ["PRODUCTS"], revalidate: 3600 },
   });
-  revalidate({ tags: ["PRODUCTS"] });
+
   if (!res.success) {
     return res.error;
   }
+
+  await revalidate({ tags: ["PRODUCTS"] });
+
   return res.data;
 }
 
@@ -24,6 +27,8 @@ export async function getManyProducts(query) {
   if (!res.success) {
     return res.error;
   }
+  await revalidate({ tags: ["PRODUCTS"] });
+
   return res.data;
 }
 

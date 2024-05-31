@@ -168,9 +168,7 @@ function Footer() {
               href="https://readymadeui.com/"
               target="_blank"
               className="hover:underline mx-1"
-            >
-              ReadymadeUI
-            </a>
+            ></a>
             All Rights Reserved.
           </p>
         </div>

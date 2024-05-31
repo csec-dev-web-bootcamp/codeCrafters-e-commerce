@@ -72,7 +72,19 @@ const products = [
 ];
 
 import ProductCard from "./product-card";
+
+const getData = async () => {
+  const res = await fetch("http://localhost:8000/products");
+
+  if (!res.ok) {
+    throw new Error("failed to fetch user data");
+  }
+
+  return res.json();
+};
 export default async function ProductsList() {
+  const apidata = await getData();
+  console.log(apidata);
   return (
     <div className="grid grid-cols-4 gap-4">
       {/* {products.map((product) => (
@@ -91,7 +103,7 @@ export default async function ProductsList() {
       </HoverCard>
       ))} */}
 
-      {products.map((product) => (
+      {apidata.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
