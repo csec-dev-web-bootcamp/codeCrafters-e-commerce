@@ -11,6 +11,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../../components/ui/dialog";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@app/client/components/ui/select";
 import { Input } from "@app/client/components/ui/input";
 import { Label } from "@app/client/components/ui/label";
 import { Textarea } from "@app/client/components/ui/textarea";
@@ -26,17 +36,24 @@ export default function ProductForm() {
     name: "",
     price: "",
     description: "",
-    category: "",
+    categoryId: "",
     image: "",
   });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormState((prev) => ({ ...prev, [id]: value }));
+    setFormState((prev) => ({
+      ...prev,
+      [id]: id === "price" ? parseFloat(value) : value,
+    }));
   };
 
   async function onSubmit(e) {
     e.preventDefault();
+    const submissionState = {
+      ...formState,
+      price: parseFloat(formState.price),
+    };
 
     const response = await startMutation(async () => {
       try {
@@ -113,18 +130,33 @@ export default function ProductForm() {
               />
             </div>
             <div className="flex flex-col justify-center w-full">
-              <Label htmlFor="category" className="text-left m-2">
-                Category
+              <Label htmlFor="categoryId" className="text-left m-2">
+                CategoryId
               </Label>
               <Input
-                id="category"
+                id="categoryId"
                 type="text"
-                placeholder="Category"
-                value={formState.category}
+                placeholder="categoryId"
+                value={formState.categoryId}
                 onChange={handleChange}
                 required
               />
             </div>
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <div className="flex flex-col justify-center w-full">
               <Label htmlFor="image" className="text-left m-2">
                 Image URL

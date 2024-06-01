@@ -5,73 +5,52 @@ import revalidate from "./revalidate";
 
 export async function createProduct(data) {
   try {
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(data));
-    const res = await fetcher(`/products`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      next: { tags: ["PRODUCTS"], revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to create product: " + (await res.text())); // Provide a more informative error message
-    }
-
-    await revalidate({ tags: ["PRODUCTS"] });
-
-    return res.json(); // Parse the response as JSON
+    const res = await fetcher.post(`/products`, data);
+    console.log(res.data);
+    return res.data;
   } catch (error) {
     console.error("Error creating product:", error);
-    // Display a user-friendly error message (optional)
-    return { error: error.message }; // Return an error object for handling in onSubmit
+    return { error: error.message };
   }
 }
 
-export async function getManyProducts(query) {
-  const res = await fetcher(`/products?${query ?? ""}`, {
-    method: "GET",
-    next: { tags: ["PRODUCTS"], revalidate: 3600 },
-  });
-  if (!res.success) {
-    return res.error;
+export async function getManyProducts() {
+  try {
+    const res = await fetcher.get(`/products`);
+    return res.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { error: error.message };
   }
-  await revalidate({ tags: ["PRODUCTS"] });
-
-  return res.data;
 }
 
 export async function getOneProduct(id) {
-  const res = await fetcher(`/products/${id}`, {
-    method: "GET",
-    next: { tags: [`PRODUCTS:${id}`], revalidate: 3600 },
-  });
-  if (!res.success) {
-    return res.error;
+  try {
+    const res = await fetcher.get(`/products/${id}`, data);
+    return res.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { error: error.message };
   }
-  return res.data;
 }
 
 export async function updateProduct(id, data) {
-  const res = await fetcher(`/products/${id}`, {
-    method: "PRODUCT",
-    body: JSON.stringify(data),
-    next: { tags: ["PRODUCTS"], revalidate: 3600 },
-  });
-  revalidate({ tags: ["PRODUCTS", `PRODUCTS:${id}`] });
-  if (!res.success) {
-    return res.error;
+  try {
+    const res = await fetcher.put(`/products/${id}`, data);
+    revalidate({ tags: ["PRODUCTS", `PRODUCTS:${id}`] });
+    return res.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { error: error.message };
   }
-  return res.data;
 }
 
 export async function deleteProduct(id) {
-  const res = await fetcher(`/products/${id}`, {
-    method: "DELETE",
-    next: { tags: ["PRODUCTS"], revalidate: 3600 },
-  });
-  revalidate({ tags: ["PRODUCTS"] });
-  if (!res.success) {
-    return res.error;
+  try {
+    const res = await fetcher.delete(`/products/${id}`, data);
+    return res.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { error: error.message };
   }
-  return res.data;
 }

@@ -42,7 +42,6 @@ export async function register(formData) {
   }
 }
 
-
 export async function logout() {
   const cookieStore = cookies();
   console.log("logouted");

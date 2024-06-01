@@ -27,11 +27,12 @@ productsController.post(
   authGuard,
   roleGuard(["ADMIN"]),
   createProductPipe,
-  asyncHandler(async (req, res) => {
+  async (req, res) => {
     const data = req.body;
+    console.log("post", { data });
     const product = await createProduct(data);
-    return res.json(product);
-  })
+    return res.json(data);
+  }
 );
 
 productsController.get(

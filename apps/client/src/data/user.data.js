@@ -1,18 +1,15 @@
 "use server";
 
 import fetcher from "./fetcher";
-import revalidate from "./revalidate";
 
-export async function getAllUsers(query) {
-  const res = await fetcher(`/users?${query ?? ""}`, {
-    method: "GET",
-    next: { tags: ["USERS"], revalidate: 3600 },
-  });
-  revalidate({ tags: ["USERS"] });
-  if (!res.success) {
-    return res.error;
+export async function getAllUsers() {
+  try {
+    const res = await fetcher.get(`/users`);
+
+    return res.data;
+  } catch (error) {
+    return null;
   }
-  return res.data;
 }
 
 export async function getMe() {

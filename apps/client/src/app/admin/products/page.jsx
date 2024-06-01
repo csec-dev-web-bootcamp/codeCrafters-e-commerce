@@ -43,14 +43,13 @@ const columns = [
 ];
 
 export default async function Products({}) {
-  // const products = await getData();
-
+  const products = await getManyProducts();
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Products" />
       {/* <ProductsForm /> */}
       <ProductForm />
-      {/* <DataTable columns={columns} data={products} />{" "} */}
+      <DataTable columns={columns} data={products} />
     </div>
   );
 }

@@ -11,7 +11,8 @@ import PageTitle from "@app/client/components/PageTitle";
 import Card, { CardContent } from "@app/client/components/Card";
 import SalesCard from "@app/client/components/SalesCard";
 import AdminHeader from "@app/client/components/admin/AdminHeader";
-import { getMe } from "@app/client/data/users";
+import { getMe } from "@app/client/data/user.data";
+// import { getMe } from "@app/client/data/users.data";
 
 const cardData = [
   {

@@ -96,13 +96,13 @@ export function SignUp() {
             <div className="mt-4 text-center text-sm">
               Already Have an account{" "}
               <Link href={"/signin"} className="underline">
-                Sign up
+                Login
               </Link>
             </div>
           </form>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block">
+      <div className="hidden bg-muted lg:block h-screen">
         <Image
           src="/images/electronicShop.jpg"
           alt="Image"

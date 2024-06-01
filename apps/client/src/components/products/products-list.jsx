@@ -74,33 +74,25 @@ import ProductCard from "./product-card";
 import { ProductsCard } from "./productCard";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:8000/products");
-
-  if (!res.ok) {
-    throw new Error("failed to fetch user data");
-  }
-
-  return res.json();
+  const response = await fetch("http://localhost:8000/products");
+  const data = await response.json();
+  return data;
 };
+
 export default async function ProductsList() {
   const apidata = await getData();
-  console.log(apidata);
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {/* {products.map((product) => (
         <HoverCard>
-        <HoverCardTrigger className="bg-slate-300">
-          {<ProductCard key={product.id} product={product}/>}
-        </HoverCardTrigger>
-        <HoverCardContent className='bg-slate-50 bg-opacity-95'>
-          <header className="font-bold text-slate-700">
-            product detail
-          </header>
-          <p className="text-slate-500">
-            {product.description}
-          </p>
-        </HoverCardContent>
-      </HoverCard>
+          <HoverCardTrigger className="bg-slate-300">
+            {<ProductCard key={product.id} product={product} />}
+          </HoverCardTrigger>
+          <HoverCardContent className="bg-slate-50 bg-opacity-95">
+            <header className="font-bold text-slate-700">product detail</header>
+            <p className="text-slate-500">{product.description}</p>
+          </HoverCardContent>
+        </HoverCard>
       ))} */}
 
       {apidata.map((product) => (

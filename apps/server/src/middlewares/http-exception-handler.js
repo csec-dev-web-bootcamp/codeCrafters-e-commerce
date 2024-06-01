@@ -10,13 +10,15 @@ export function httpExceptionHandler(err, req, res, next) {
   } catch (error) {
     message = err.message;
   }
-  console.error({ message });
-  res.status(statusCode).json({
+  const errorData = {
     error: true,
     statusCode: statusCode,
     message: message,
     details: details,
     timestamp: new Date().toISOString(),
     path: req.url,
-  });
+  };
+
+  console.log(errorData);
+  res.status(statusCode).json(errorData);
 }
