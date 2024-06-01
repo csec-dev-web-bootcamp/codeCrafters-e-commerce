@@ -21,6 +21,7 @@ import { getRequestMeta } from "next/dist/server/request-meta";
 import Image from "next/image";
 import ProductForm from "@app/client/components/forms/product/productForm";
 import { getManyProducts } from "@app/client/data/product.data";
+import getCategories from "@app/client/data/category.data";
 
 const columns = [
   {
@@ -44,11 +45,19 @@ const columns = [
 
 export default async function Products({}) {
   const products = await getManyProducts();
+  const categories = await getCategories();
+  console.log(categories);
+
+  const categoryArray = Object.keys(categories).map((key) => ({
+    id: key,
+    ...categories[key],
+  }));
+
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Products" />
       {/* <ProductsForm /> */}
-      <ProductForm />
+      <ProductForm categories={categoryArray} />
       <DataTable columns={columns} data={products} />
     </div>
   );

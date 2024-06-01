@@ -29,8 +29,10 @@ import useMutation from "@app/client/hooks/use-mutation";
 
 import { useState } from "react";
 import { createProduct } from "@app/client/data/product.data";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
-export default function ProductForm() {
+export default function ProductForm({ categories }) {
+  console.log(typeof categories);
   const { isMutating, startMutation } = useMutation();
   const [formState, setFormState] = useState({
     name: "",
@@ -72,18 +74,15 @@ export default function ProductForm() {
       .catch((err) => {
         console.log(err);
       });
-
-    // if (response.error) {
-    //   console.error("Error:", response.error);
-    // } else {
-    //   console.error("Error:", response.error);
-    // }
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-3/12">ADD Products</Button>
+        <Button className="w-3/12">
+          <PlusCircledIcon />
+          ADD Products
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -129,34 +128,34 @@ export default function ProductForm() {
                 required
               />
             </div>
-            <div className="flex flex-col justify-center w-full">
-              <Label htmlFor="categoryId" className="text-left m-2">
-                CategoryId
-              </Label>
-              <Input
+
+            <div className="w-full">
+              <Label className="text-right ml-2">Category</Label>
+
+              <Select
                 id="categoryId"
-                type="text"
-                placeholder="categoryId"
                 value={formState.categoryId}
-                onChange={handleChange}
-                required
-              />
+                onValueChange={(value) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    categoryId: value,
+                  }))
+                }
+              >
+                <SelectTrigger className="w-full mt-1">
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
-            <Select>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
             <div className="flex flex-col justify-center w-full">
               <Label htmlFor="image" className="text-left m-2">
                 Image URL
@@ -172,7 +171,7 @@ export default function ProductForm() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={isMutating}>
+            <Button className="mt-4" type="submit" disabled={isMutating}>
               Add Product
             </Button>
           </DialogFooter>
