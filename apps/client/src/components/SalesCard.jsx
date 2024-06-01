@@ -7,6 +7,7 @@
 
 /** @format */
 
+import Image from "next/image";
 import React from "react";
 
 export default function SalesCard(props) {
@@ -15,14 +16,15 @@ export default function SalesCard(props) {
       <section className="flex justify-between gap-3 ">
         <div className=" h-12 w-12 rounded-full bg-gray-100 p-1">
           <img
-            width={200}
-            height={200}
-            src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${props.name}`}
+            className=""
+            width={300}
+            height={300}
+            src={`https://st3.depositphotos.com/13159112/17145/v/380/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg`}
             alt="avatar"
           />
         </div>
         <div className="text-sm">
-          <p>{props.name}</p>
+          <p>{props.firstName}</p>
           <div className="text-ellipsis overflow-hidden whitespace-nowrap w-[120px]  sm:w-auto  text-gray-400">
             {props.email}
           </div>

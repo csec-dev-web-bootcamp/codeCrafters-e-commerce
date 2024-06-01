@@ -7,22 +7,22 @@ import { DataTable } from "../DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 
 const columns = [
-  // {
-  //   accessorKey: "firstName",
-  //   header: "Name",
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="flex gap-2 items-center rounded-full">
-  //         <img
-  //           className="h-10 w-10 object-cover object-center rounded-full"
-  //           src={`https://cdn.imgbin.com/8/20/20/imgbin-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-pvE7Qhr6Zk7kLJpGiWZ9FFRVf.jpg`}
-  //           alt="user-image"
-  //         />
-  //         <p>{row.getValue("name")} </p>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    accessorKey: "firstName",
+    header: "Image",
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2 items-center rounded-full">
+          <img
+            className="h-10 w-10 object-cover object-center rounded-full"
+            src={`https://st3.depositphotos.com/9998432/13335/v/380/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg`}
+            alt="user-image"
+          />
+          <p>{row.getValue("name")} </p>
+        </div>
+      );
+    },
+  },
 
   {
     accessorKey: "firstName",
@@ -70,7 +70,7 @@ const uesrSalesData = [
   },
 ];
 
-export default async function UsersList({ users }) {
+export default function UsersList({ users }) {
   return (
     <div>
       <PageTitle title="Users" />

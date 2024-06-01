@@ -11,7 +11,7 @@ import PageTitle from "@app/client/components/PageTitle";
 import Card, { CardContent } from "@app/client/components/Card";
 import SalesCard from "@app/client/components/SalesCard";
 import AdminHeader from "@app/client/components/admin/AdminHeader";
-import { getMe } from "@app/client/data/user.data";
+import { getAllUsers, getMe } from "@app/client/data/user.data";
 // import { getMe } from "@app/client/data/users.data";
 
 const cardData = [
@@ -81,6 +81,12 @@ const getData = async () => {
 export default async function Home() {
   const data = await getData();
   const user = await getMe();
+  const users = await getAllUsers();
+
+  const usersArray = Object.keys(users).map((key) => ({
+    id: key,
+    ...users[key],
+  }));
 
   return (
     <div className="flex flex-col gap-5  w-full">
@@ -110,13 +116,8 @@ export default async function Home() {
               You made 265 sales this month.
             </p>
           </section>
-          {data.map((d, i) => (
-            <SalesCard
-              key={i}
-              email={d.email}
-              name={d.name}
-              PhoneNumber={d.phone}
-            />
+          {usersArray.map((d, i) => (
+            <SalesCard key={i} email={d.email} name={d.firstName} />
           ))}
         </CardContent>
 
