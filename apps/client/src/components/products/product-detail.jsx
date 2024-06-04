@@ -11,7 +11,8 @@ import { useMemo } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button, buttonVariants } from "../ui/button";
 import { cn } from "@app/client/lib/utils";
-import { EyeOpenIcon, ResetIcon } from "@radix-ui/react-icons";
+import { EyeNoneIcon, EyeOpenIcon, ResetIcon } from "@radix-ui/react-icons";
+import { EyeIcon } from "lucide-react";
 function ProductDetail({ product }) {
   const cart = useCart();
 
@@ -33,7 +34,7 @@ function ProductDetail({ product }) {
             })
           )}
         >
-          <ResetIcon className="size-4" aria-hidden="true" />
+          <EyeOpenIcon className="size-4" aria-hidden="true" />
           <span className="sr-only">Preview</span>
         </Button>
       </SheetTrigger>
@@ -59,7 +60,10 @@ function ProductDetail({ product }) {
                       </h2>
                       <div class="flex flex-wrap gap-4 mt-4">
                         <p class="text-[#333] text-3xl font-bold">
-                          {product.price}
+                          {product.price}{" "}
+                          <span className="text-slate-400 text-base font-thin">
+                            Birr
+                          </span>
                         </p>
                       </div>
 
@@ -109,40 +113,34 @@ function ProductDetail({ product }) {
                     </div>
 
                     <div class="mt-8">
-                      <h3 class="text-lg font-bold text-gray-800">Sizes</h3>
-                      <div class="flex flex-wrap gap-4 mt-4">
-                        <button
-                          type="button"
-                          class="w-12 h-12 border-2 hover:border-gray-800 font-semibold text-sm rounded-full flex items-center justify-center shrink-0"
-                        >
-                          SM
-                        </button>
-                        <button
-                          type="button"
-                          class="w-12 h-12 border-2 hover:border-gray-800 border-gray-800 font-semibold text-sm rounded-full flex items-center justify-center shrink-0"
-                        >
-                          MD
-                        </button>
-                        <button
-                          type="button"
-                          class="w-12 h-12 border-2 hover:border-gray-800 font-semibold text-sm rounded-full flex items-center justify-center shrink-0"
-                        >
-                          LG
-                        </button>
-                        <button
-                          type="button"
-                          class="w-12 h-12 border-2 hover:border-gray-800 font-semibold text-sm rounded-full flex items-center justify-center shrink-0"
-                        >
-                          XL
-                        </button>
-                      </div>
-                      <div class="mt-8">
+                      <div class="mt-10">
                         <h3 class="text-lg font-bold text-gray-800">
-                          About the item
+                          Description
                         </h3>
-                        <ul class="space-y-3 list-disc mt-4 text-base text-gray-800 mb-5">
+                        <p class="mt-2 text-base text-gray-600 mb-10">
                           {product.description}
-                        </ul>
+                        </p>
+                        <h3 class="text-lg font-bold text-gray-800">
+                          Choose a Color
+                        </h3>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                          <button
+                            type="button"
+                            class="w-10 h-10 bg-black border-2 border-white hover:border-gray-800 rounded-full shrink-0"
+                          ></button>
+                          <button
+                            type="button"
+                            class="w-10 h-10 bg-gray-300 border-2 border-white hover:border-gray-800 rounded-full shrink-0"
+                          ></button>
+                          <button
+                            type="button"
+                            class="w-10 h-10 bg-gray-100 border-2 border-white hover:border-gray-800 rounded-full shrink-0"
+                          ></button>
+                          <button
+                            type="button"
+                            class="w-10 h-10 bg-blue-400 border-2 border-white hover:border-gray-800 rounded-full shrink-0"
+                          ></button>
+                        </div>
                       </div>
                       <button
                         type="button"

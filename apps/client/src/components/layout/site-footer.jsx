@@ -24,7 +24,7 @@ export function SiteFooter() {
             aria-labelledby="footer-branding-heading"
           >
             <Link href="/" className="flex w-fit items-center space-x-2">
-              <Icons.logo className="size-6" aria-hidden="true" />
+              <Icons.bot className="size-6" aria-hidden="true" />
               {/* <span className="font-bold">{siteConfig.name}</span> */}
               <span className="sr-only">Home</span>
             </Link>
@@ -184,9 +184,7 @@ export function SiteFooter() {
             aria-labelledby="newsletter-heading"
             className="space-y-3"
           >
-            <h4 className="text-base font-medium">
-              Subscribe to our newsletter
-            </h4>
+            <h4 className="text-base font-medium">Leave Your Feedback Here</h4>
             {/* <JoinNewsletterForm /> */}
           </section>
         </section>
@@ -203,7 +201,7 @@ export function SiteFooter() {
               rel="noreferrer"
               className="font-semibold transition-colors hover:text-foreground"
             >
-              Code Crafters
+              CodeCrafters
               <span className="sr-only">Twitter</span>
             </Link>
             .
@@ -211,7 +209,7 @@ export function SiteFooter() {
           <div className="flex items-center space-x-1">
             <Link
               // href={siteConfig.links.github}
-              href="/https://github.com/Abenittz"
+              href="/https://github.com/csec-dev-web-bootcamp/codeCrafters-e-commerce"
               target="_blank"
               rel="noreferrer"
               className={cn(

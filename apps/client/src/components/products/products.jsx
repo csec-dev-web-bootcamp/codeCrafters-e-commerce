@@ -10,6 +10,7 @@ import {
 } from "@app/client/components/ui/card";
 
 import PostsList from "../../components/products/products-list";
+import ProductsList from "../../components/products/products-list";
 export default function ProductPage() {
   return (
     <div>
@@ -57,7 +58,7 @@ export default function ProductPage() {
             <div className="text-md font-semibold"> Gaming Pcs</div>
           </div>
           <div className="w-fit h-[50px] border border-bg-slate-400 rounded-lg py-2 px-3 flex items-center justify-centers">
-            <div className="text-md font-semibold"> Accessories</div>
+            <div className="text-md font-semibold"> HeadPhones</div>
           </div>
           {/* <div className="w-[350px] h-[100px] border border-slate-500 rounded-md">
         <div className="card  ">Skate shop</div>
@@ -66,6 +67,7 @@ export default function ProductPage() {
         <h1 className="text-xl font-semibold mb-2"> Products</h1>
       </div>
       <PostsList />
+      {/* <ProductsList /> */}
     </div>
   );
 }

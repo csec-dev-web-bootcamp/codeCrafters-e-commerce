@@ -61,7 +61,7 @@ export function MainNav() {
   return (
     <div className="hidden gap-6 lg:flex">
       <Link href="/" className="hidden items-center space-x-2 lg:flex">
-        <Icons.logo className="size-6" aria-hidden="true" />
+        <Icons.bot className="size-6" aria-hidden="true" />
         {/* <span className="hidden font-bold lg:inline-block">
           {siteConfig.name}
         </span> */}
@@ -71,7 +71,7 @@ export function MainNav() {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="font-bold">
-              Services
+              Categories
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -110,16 +110,10 @@ export function MainNav() {
               Products
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[300px] ">
+                <Link href={"/products"}>
+                  <ListItem className="font-bold">Products</ListItem>
+                </Link>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>

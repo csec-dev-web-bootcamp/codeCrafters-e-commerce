@@ -3,6 +3,7 @@ import React from "react";
 import PageTitle from "../PageTitle";
 import ProductForm from "../forms/product/productForm";
 import { DataTable } from "../DataTable";
+import { Icons } from "../icons";
 
 const columns = [
   {
@@ -22,19 +23,22 @@ const columns = [
     },
   },
   {
-    accessorKey: "",
+    accessorKey: "name",
     header: "Products",
     cell: ({ row }) => {
       return <p className="font-bold">{row.getValue("name")}</p>;
     },
   },
   {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
     accessorKey: "price",
     header: "Price",
+  },
+  {
+    accessorKey: "",
+    header: "Delete",
+    cell: ({ row }) => {
+      return <Icons.cart className="size-6" aria-hidden="true" />;
+    },
   },
 ];
 

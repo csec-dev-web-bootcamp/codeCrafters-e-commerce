@@ -13,7 +13,7 @@ import { useMemo } from "react";
 
 import ProductDetail from "./product-detail";
 
-export default function ProductCard({ product }) {
+export default function ProductCardsEx({ product }) {
   const cart = useCart();
 
   const isAdded = useMemo(() => {

@@ -53,6 +53,10 @@ const columns = [
     accessorKey: "price",
     header: "Price",
   },
+  {
+    accessorKey: "delete",
+    header: "Delete",
+  },
 
   // {
   //   accessorKey: "category.name",

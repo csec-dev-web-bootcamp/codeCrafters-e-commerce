@@ -32,7 +32,6 @@ import { createProduct } from "@app/client/data/product.data";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 export default function ProductForm({ categories }) {
-  console.log(typeof categories);
   const { isMutating, startMutation } = useMutation();
   const [formState, setFormState] = useState({
     name: "",
@@ -49,7 +48,6 @@ export default function ProductForm({ categories }) {
       [id]: id === "price" ? parseFloat(value) : value,
     }));
   };
-
   async function onSubmit(e) {
     e.preventDefault();
     const submissionState = {
@@ -57,25 +55,36 @@ export default function ProductForm({ categories }) {
       price: parseFloat(formState.price),
     };
 
-    const response = await startMutation(async () => {
+    startMutation(async () => {
       try {
-        const product = await createProduct(formState);
+        const product = await createProduct(submissionState);
         console.log(product);
-        return product;
+        setFormState({
+          name: "",
+          price: "",
+          description: "",
+          categoryId: "",
+          image: "",
+        });
+        return true;
       } catch (error) {
         console.error("Error creating product:", error);
-
         return { error: error.message + "Valhala" };
       }
     })
       .then((res) => {
-        console.log(res);
+        if (res === true) {
+          // Handle successful mutation if necessary
+          console.log("Product created successfully");
+        } else if (res?.error) {
+          // Handle error returned from mutation
+          console.log(res.error);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Mutation error:", err);
       });
   }
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -172,7 +181,7 @@ export default function ProductForm({ categories }) {
           </div>
           <DialogFooter>
             <Button className="mt-4" type="submit" disabled={isMutating}>
-              Add Product
+              {isMutating ? "Submitting..." : "Submit"}
             </Button>
           </DialogFooter>
         </form>
