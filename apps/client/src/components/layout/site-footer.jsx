@@ -25,7 +25,7 @@ export function SiteFooter() {
           >
             <Link href="/" className="flex w-fit items-center space-x-2">
               <Icons.bot className="size-6" aria-hidden="true" />
-              {/* <span className="font-bold">{siteConfig.name}</span> */}
+              <span className="font-bold">TechShop</span>
               <span className="sr-only">Home</span>
             </Link>
           </section>
@@ -117,14 +117,14 @@ export function SiteFooter() {
               </ul>
             </div>
             <div className="space-y-3">
-              <h4 className="text-base font-medium">Quick Links</h4>
+              <h4 className="text-base font-medium">Categories</h4>
               <ul className="space-y-2.5">
                 <li>
                   <Link
                     href="/home"
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    Home
+                    Laptops
                     <span className="sr-only">home page</span>
                   </Link>
                 </li>
@@ -133,7 +133,7 @@ export function SiteFooter() {
                     href="/home"
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    Home
+                    Mobile
                     <span className="sr-only">home page</span>
                   </Link>
                 </li>
@@ -142,7 +142,7 @@ export function SiteFooter() {
                     href="/home"
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    Home
+                    Gaming Headset
                     <span className="sr-only">home page</span>
                   </Link>
                 </li>
@@ -151,7 +151,7 @@ export function SiteFooter() {
                     href="/home"
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    Home
+                    Airpods
                     <span className="sr-only">home page</span>
                   </Link>
                 </li>

@@ -8,6 +8,7 @@ import { login } from "@app/client/data/auth";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
+import { Icons } from "../../icons";
 
 export function Login() {
   const { isMutating, startMutation } = useMutation();
@@ -36,7 +37,14 @@ export function Login() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <div className="flex items-center justify-center">
+              <Icons.bot className="size-10" aria-hidden="true" />
+              <span className=" font-bold">TechShop</span>
+            </div>
+            <h1 className="text-3xl font-semibold mb-10">
+              Welocme to TechShop
+            </h1>
+            <h2 className="text-3xl font-bold">Login</h2>
             <p className="text-balance text-muted-foreground">
               Enter your email below to login to your account
             </p>
@@ -83,7 +91,7 @@ export function Login() {
           alt="Image"
           width="1920"
           height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="h-full w-full object-cover "
         />
       </div>
     </div>

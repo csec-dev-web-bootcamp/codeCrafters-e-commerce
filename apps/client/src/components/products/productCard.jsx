@@ -48,10 +48,11 @@ export function ProductsCard({ products, variant = "default" }) {
     { name: "Gaming Laptops" },
     { name: "Gaming Monitors" },
   ];
-
-  const isAdded = useMemo(() => {
-    return cart.cartProducts.find((prod) => prod.id === products.id);
-  }, [cart.cartProducts]);
+  const isProductInCart = (productId) => {
+    return cart.cartProducts.some(
+      (cartProduct) => cartProduct.id === productId
+    );
+  };
 
   const filteredProducts = useMemo(() => {
     if (!selectedCategory) return products;
@@ -62,26 +63,34 @@ export function ProductsCard({ products, variant = "default" }) {
 
   return (
     <div>
-      <div className="mb-5">
+      <div className="mb-10">
         <Button
+          variant="secondary"
           onClick={() => setSelectedCategory(null)}
-          className={`mr-2 ${selectedCategory === null ? "bg-gray-300" : ""}`}
+          className={`mr-2 bg-[#f4f4f4] ${
+            selectedCategory === null
+              ? "bg-black text-white hover:bg-slate-800 hover:text-white"
+              : ""
+          }`}
         >
           All
         </Button>
         {categories.map((category) => (
           <Button
+            variant="secondary"
             key={category.name}
             onClick={() => setSelectedCategory(category.name)}
-            className={`mr-2 ${
-              selectedCategory === category.name ? "bg-gray-300" : ""
+            className={`mr-2 bg-[#f8f8f8] ${
+              selectedCategory === category.name
+                ? "bg-black text-white hover:bg-slate-800 hover:text-white"
+                : ""
             }`}
           >
             {category.name}
           </Button>
         ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-20">
         {filteredProducts.map((product) => (
           <Card className={cn("size-full  overflow-hidden rounded-sm")}>
             <CardHeader className="border-b p-0  overflow-hidden">
@@ -121,17 +130,24 @@ export function ProductsCard({ products, variant = "default" }) {
               {/* {variant === "default" ? ( */}
               <div className="flex w-full items-center space-x-2">
                 <Button
-                  aria-label={isAdded ? "Remove from cart" : "Add to cart"}
+                  aria-label={
+                    isProductInCart(product.id)
+                      ? "Remove from cart"
+                      : "Add to cart"
+                  }
                   size="lg"
-                  variant="outline"
-                  className="h-8 w-6/12 rounded-sm"
+                  className="h-8 w-full rounded-sm"
                   onClick={() =>
-                    isAdded
+                    isProductInCart(product.id)
                       ? cart.removeFromCart(product.id)
                       : cart.addToCart(product)
                   }
                   disabled={isAddingToCart}
-                ></Button>
+                >
+                  {isProductInCart(product.id)
+                    ? "Remove from cart"
+                    : "Add to cart"}
+                </Button>
 
                 <ProductDetail product={product} />
               </div>
