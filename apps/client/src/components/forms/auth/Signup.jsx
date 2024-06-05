@@ -8,6 +8,7 @@ import { register } from "@app/client/data/auth";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
+import { Icons } from "../../icons";
 
 export function SignUp() {
   const { isMutating, startMutation } = useMutation();
@@ -38,6 +39,13 @@ export function SignUp() {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
+            <div className="flex items-center justify-center">
+              <Icons.bot className="size-10" aria-hidden="true" />
+              <span className=" font-bold">TechShop</span>
+            </div>
+            <h1 className="text-3xl font-semibold mb-10">
+              Welocme to TechShop
+            </h1>
             <h1 className="text-3xl font-bold">Sign Up</h1>
             <p className="text-balance text-muted-foreground">
               Enter your personal info

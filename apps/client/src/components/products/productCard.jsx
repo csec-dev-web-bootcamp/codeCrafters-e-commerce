@@ -115,9 +115,9 @@ export function ProductsCard({ products, variant = "default" }) {
               <div className="flex items-center justify-between">
                 <CardTitle className="text-xl">{product.name}</CardTitle>
               </div>
-              {/* <CardDescription className="line-clamp-1 mb-5 text-sm">
+              <CardDescription className="line-clamp-1 mb-5 text-sm">
                 {product.description}
-              </CardDescription> */}
+              </CardDescription>
               <div className="mt-10">
                 <CardTitle className="line-clamp-1 text-lg">
                   {product.price}

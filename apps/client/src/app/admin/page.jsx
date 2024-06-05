@@ -12,32 +12,36 @@ import Card, { CardContent } from "@app/client/components/Card";
 import SalesCard from "@app/client/components/SalesCard";
 import AdminHeader from "@app/client/components/admin/AdminHeader";
 import { getAllUsers, getMe } from "@app/client/data/user.data";
+import { User } from "lucide-react";
+import { BoxIcon } from "lucide-react";
+import { List } from "lucide-react";
+import { ListOrdered } from "lucide-react";
 // import { getMe } from "@app/client/data/users.data";
 
 const cardData = [
   {
-    label: "Total Revenue",
-    amount: "$45,231.89",
-    discription: "+20.1% from last month",
-    icon: DollarSign,
-  },
-  {
-    label: "Subscriptions",
-    amount: "+2350",
-    discription: "+180.1% from last month",
+    label: "Total Users",
+    amount: "+6",
+
     icon: Users,
   },
   {
-    label: "Sales",
-    amount: "+12,234",
-    discription: "+19% from last month",
-    icon: CreditCard,
+    label: "Products",
+    amount: "+9",
+
+    icon: BoxIcon,
   },
   {
-    label: "Active Now",
-    amount: "+573",
-    discription: "+201 since last hour",
-    icon: Activity,
+    label: "Categories",
+    amount: "+10",
+
+    icon: List,
+  },
+  {
+    label: "Ordered Items",
+    amount: "+3",
+
+    icon: CreditCard,
   },
 ];
 
@@ -111,10 +115,8 @@ export default async function Home() {
         </CardContent>
         <CardContent className="flex justify-between gap-4">
           <section>
-            <p>Recent Sales</p>
-            <p className="text-sm text-gray-400">
-              You made 265 sales this month.
-            </p>
+            <p>Customers</p>
+            <p className="text-sm text-gray-400"></p>
           </section>
           {usersArray.map((d, i) => (
             <SalesCard key={i} email={d.email} name={d.firstName} />
