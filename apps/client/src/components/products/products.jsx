@@ -21,7 +21,7 @@ export default function ProductPage() {
               <h1 className="text-3xl font-semibold">
                 <span className="font-bold leading-6">LIMITED TIME OFFER</span>{" "}
                 <br></br>
-                Save on MacBook Pro
+                From Our Stocks
               </h1>
             </div>
             <img

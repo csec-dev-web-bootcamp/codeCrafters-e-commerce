@@ -1,248 +1,160 @@
 "use client";
 
+import Cart from "@app/client/components/global/cart";
+import { Icons } from "@app/client/components/icons";
 import { Button } from "@app/client/components/ui/button";
+import { Input } from "@app/client/components/ui/input";
+import { ScrollArea, ScrollBar } from "@app/client/components/ui/scroll-area";
+
 import { useCheckout } from "@app/client/stores/checkoutStore";
+
+export const works = [
+  {
+    artist: "Ornella Binni",
+    art: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    artist: "Tom Byrom",
+    art: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
+  },
+  {
+    artist: "Vladimir Malyavko",
+    art: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
+  },
+];
 
 export default function Checkout() {
   const check = useCheckout();
-  const totalPrice = check.checkoutProducts.reduce((total, product) => {
+  const totalSum = check.checkoutProducts.reduce((total, product) => {
     return total + product.totalPrice;
   }, 0);
 
   return (
-    <>
-      {/* <div classNameName="h-screen">
-        <h1 classNameName="font-bold text-3xl">Checkout</h1>
-        {check.checkoutProducts.map((product, index) => (
-          <div key={product.id}>
-            <div classNameName="card w-52">
-              <div classNameName="card-title">
-                <h1 classNameName="font-bold">{product.name}</h1>
-              </div>
-              <div classNameName="card-body">
-                <p classNameName="text-slate-500">{product.brand}</p>
-              </div>
-              <Button
-                size="lg"
-                variant="default"
-                onClick={() => check.revertToCart(product.id)}
-              >
-                revert To cart
-              </Button>
+    <div class="font-[sans-serif] bg-white p-4 h-[800px] flex items-center">
+      <div class="md:max-w-5xl max-w-xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-0">
+          <div class="lg:col-span-2 max-md:order-1">
+            <div className="flex items-center justify-start mb-5">
+              <Icons.bot className="size-7" />
+              <span className="font-bold ">TechShop</span>
             </div>
-          </div>
-        ))}
-        <h1>{check.checkoutProducts.length}</h1>
-      </div> */}
+            <h2 class="text-3xl font-extrabold text-gray-800">
+              Make a payment
+            </h2>
+            <p class="text-gray-800 text-sm mt-4">
+              Complete your transaction swiftly with chapa
+            </p>
 
-      <div className="font-[sans-serif] bg-gray-50">
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 h-full">
-          <div className="bg-[#3f3f3f] lg:h-screen lg:sticky lg:top-0">
-            <div className="relative h-full">
-              <div className="p-8 lg:overflow-auto lg:h-[calc(100vh-60px)]">
-                <h2 className="text-2xl font-bold text-white">Order Summary</h2>
-                <div className="space-y-6 mt-10">
-                  {check.checkoutProducts.map((product, index) => (
-                    <div className="grid sm:grid-cols-2 items-start gap-6">
-                      <div className="px-4 py-6 shrink-0 bg-gray-50 rounded-md">
-                        <img
-                          src={product.url}
-                          className="w-full object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-base text-white">{product.name}</h3>
-                        <ul className="text-xs text-white space-y-3 mt-4">
-                          <li className="flex flex-wrap gap-4">
-                            Brand{" "}
-                            <span className="ml-auto">{product.brand}</span>
-                          </li>
-                          <li className="flex flex-wrap gap-4">
-                            Quantity{" "}
-                            <span className="ml-auto">{product.amount}</span>
-                          </li>
-                          <li className="flex flex-wrap gap-4">
-                            Total Price{" "}
-                            <span className="ml-auto">
-                              {product.totalPrice}
-                            </span>
-                          </li>
-                        </ul>
+            <form class="mt-8 max-w-lg">
+              <div class="grid gap-4">
+                <Input
+                  type="text"
+                  placeholder="Address"
+                  class="px-4 py-3.5  rounded-xl border  text-gray-800 w-full  focus:bg-transparent "
+                />
+
+                <div class="flex  rounded-md overflow-hidden">
+                  <Input
+                    type="number"
+                    placeholder="Card Number"
+                    class="px-4 py-3.5  rounded-xl border text-gray-800 w-full text-sm outline-none bg-transparent"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                  <Input
+                    type="number"
+                    placeholder="EXP."
+                    class="px-4 py-3.5  rounded-xl border  text-gray-800 w-full  focus:bg-transparent "
+                  />
+                  <Input
+                    type="number"
+                    placeholder="CVV"
+                    class="px-4 py-3.5  rounded-xl border  text-gray-800 w-full  focus:bg-transparent "
+                  />
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-4/12 mt-4 px-4 py-3.5"
+                // type="button"
+                // class="mt-4 w-40 py-3.5 text-sm text-white rounded-md  tracking-wide"
+              >
+                Pay{" "}
+              </Button>
+            </form>
+          </div>
+
+          <div class="border p-6 rounded-md w-[500px]">
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-bold">Over View</span>
+              <span className="text-gray-800 text-sm ml-2">
+                {check.checkoutProducts.length} items
+              </span>
+            </div>
+            <ScrollArea className="w-full whitespace-nowrap rounded-md ">
+              <div className="flex w-max space-x-4 p-4 mr-3">
+                {check.checkoutProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="shrink-0 border rounded-xl bg-gray-200 overflow-hidden py-2 px-2"
+                  >
+                    <div className="overflow-hidden rounded-lg w-full h-[200px] border-b">
+                      <img
+                        src={product.image}
+                        alt={`Photo by ${product.name}`}
+                        className=" h-full w-full object-cover"
+                        width={300}
+                        height={400}
+                      />
+                    </div>
+                    {/* <figcaption className="pt-2 text-xs text-muted-foreground">
+                      Photo by{" "}
+                      <span className="font-semibold text-foreground">
+                        {product.name}
+                      </span>
+                    </figcaption> */}
+                    <div className="px-2 py-2">
+                      <h1 className="text-xl  font-bold mt-4 ">
+                        {product.name}
+                      </h1>
+                      <div className="mt-3">
+                        <h1 className="text-lg font-semibold ">
+                          {product.price}
+                        </h1>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-              <div className="absolute left-0 bottom-0 bg-[#444] w-full p-4">
-                <h4 className="flex flex-wrap gap-4 text-base text-white">
-                  Total <span className="ml-auto">{totalPrice}</span>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div className="xl:col-span-2 h-max rounded-md p-8 sticky top-0">
-            <h2 className="text-2xl font-bold text-[#333]">
-              Complete your order
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+            <h2 class="text-3xl font-extrabold text-gray-800">
+              {totalSum}
+              <span className="text-sm text-gray-400 font-light ml-2">
+                Birr
+              </span>
             </h2>
-            <form className="mt-10">
-              <div>
-                <h3 className="text-lg font-bold text-[#333] mb-6">
-                  Personal Details
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="relative flex items-center">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#bbb"
-                      stroke="#bbb"
-                      className="w-[18px] h-[18px] absolute right-4"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        cx="10"
-                        cy="7"
-                        r="6"
-                        data-original="#000000"
-                      ></circle>
-                      <path
-                        d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                        data-original="#000000"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div className="relative flex items-center">
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#bbb"
-                      stroke="#bbb"
-                      className="w-[18px] h-[18px] absolute right-4"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        cx="10"
-                        cy="7"
-                        r="6"
-                        data-original="#000000"
-                      ></circle>
-                      <path
-                        d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                        data-original="#000000"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div className="relative flex items-center">
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#bbb"
-                      stroke="#bbb"
-                      className="w-[18px] h-[18px] absolute right-4"
-                      viewBox="0 0 682.667 682.667"
-                    >
-                      <defs>
-                        <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                          <path
-                            d="M0 512h512V0H0Z"
-                            data-original="#000000"
-                          ></path>
-                        </clipPath>
-                      </defs>
-                      <g
-                        clip-path="url(#a)"
-                        transform="matrix(1.33 0 0 -1.33 0 682.667)"
-                      >
-                        <path
-                          fill="none"
-                          stroke-miterlimit="10"
-                          stroke-width="40"
-                          d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
-                          data-original="#000000"
-                        ></path>
-                        <path
-                          d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"
-                          data-original="#000000"
-                        ></path>
-                      </g>
-                    </svg>
-                  </div>
-                  <div className="relative flex items-center">
-                    <input
-                      type="number"
-                      placeholder="Phone No."
-                      className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                    />
-                    <svg
-                      fill="#bbb"
-                      className="w-[18px] h-[18px] absolute right-4"
-                      viewBox="0 0 64 64"
-                    >
-                      <path
-                        d="m52.148 42.678-6.479-4.527a5 5 0 0 0-6.963 1.238l-1.504 2.156c-2.52-1.69-5.333-4.05-8.014-6.732-2.68-2.68-5.04-5.493-6.73-8.013l2.154-1.504a4.96 4.96 0 0 0 2.064-3.225 4.98 4.98 0 0 0-.826-3.739l-4.525-6.478C20.378 10.5 18.85 9.69 17.24 9.69a4.69 4.69 0 0 0-1.628.291 8.97 8.97 0 0 0-1.685.828l-.895.63a6.782 6.782 0 0 0-.63.563c-1.092 1.09-1.866 2.472-2.303 4.104-1.865 6.99 2.754 17.561 11.495 26.301 7.34 7.34 16.157 11.9 23.011 11.9 1.175 0 2.281-.136 3.29-.406 1.633-.436 3.014-1.21 4.105-2.302.199-.199.388-.407.591-.67l.63-.899a9.007 9.007 0 0 0 .798-1.64c.763-2.06-.007-4.41-1.871-5.713z"
-                        data-original="#000000"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6">
-                <h3 className="text-lg font-bold text-[#333] mb-6">
-                  Shipping Address
-                </h3>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <input
-                    type="text"
-                    placeholder="Address Line"
-                    className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                  />
-                  <input
-                    type="text"
-                    placeholder="City"
-                    className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                  />
-                  <input
-                    type="text"
-                    placeholder="State"
-                    className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Zip Code"
-                    className="px-4 py-3.5 bg-white text-[#333] w-full text-sm border-b-2 focus:border-[#333] outline-none"
-                  />
-                </div>
-                <div className="flex gap-6 max-sm:flex-col mt-10">
-                  <button
-                    type="button"
-                    className="rounded-md px-6 py-3 w-full text-sm font-semibold bg-transparent hover:bg-gray-100 border-2 text-[#333]"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="rounded-md px-6 py-3 w-full text-sm font-semibold bg-[#333] text-white hover:bg-[#222]"
-                  >
-                    Complete Purchase
-                  </button>
-                </div>
-              </div>
-            </form>
+
+            <ul class="text-gray-800 mt-6 space-y-3">
+              {/* <li class="flex flex-wrap gap-4 text-sm">
+                Split Sneakers <span class="ml-auto font-bold">$150.00</span>
+              </li>
+              <li class="flex flex-wrap gap-4 text-sm">
+                Echo Elegance <span class="ml-auto font-bold">$90.00</span>
+              </li>
+              <li class="flex flex-wrap gap-4 text-sm">
+                Tax <span class="ml-auto font-bold">$10.00</span>
+              </li> */}
+
+              <li class="flex flex-wrap gap-4 text-sm font-bold border-t-2 pt-4">
+                Total <span class="ml-auto">{totalSum} Birr</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
