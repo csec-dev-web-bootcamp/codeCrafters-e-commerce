@@ -14,6 +14,16 @@ export async function createProduct(data) {
   }
 }
 
+export async function getByCategory(id) {
+  try {
+    const res = await fetcher.get(`/products/category/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { error: error.message };
+  }
+}
+
 export async function getManyProducts() {
   try {
     const res = await fetcher.get(`/products`);
@@ -47,10 +57,10 @@ export async function updateProduct(id, data) {
 
 export async function deleteProduct(id) {
   try {
-    const res = await fetcher.delete(`/products/${id}`, data);
+    const res = await fetcher.delete(`/products/${id}`);
     return res.data;
   } catch (error) {
-    console.error("Error creating product:", error);
+    console.error("Error Deleting product:", error);
     return { error: error.message };
   }
 }

@@ -85,7 +85,7 @@ export function SiteHeader({ user }) {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard/stores">
+                      <Link href="/profile">
                         <DashboardIcon
                           className="mr-2 size-4 py-4"
                           aria-hidden="true"

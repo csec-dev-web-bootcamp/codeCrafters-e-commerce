@@ -42,16 +42,12 @@ const columns = [
     },
   },
   {
-    accessorKey: "",
-    header: "Products",
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
     accessorKey: "price",
     header: "Price",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Created At",
   },
   {
     accessorKey: "delete",
@@ -68,6 +64,7 @@ export default async function Products({}) {
   const products = await getManyProducts();
   const categories = await getCategories();
   console.log(categories);
+  console.log(products);
 
   const categoryArray = Object.keys(categories).map((key) => ({
     id: key,

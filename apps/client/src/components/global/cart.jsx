@@ -18,9 +18,19 @@ import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 import { cn } from "@app/client/lib/utils";
 import { Icons } from "../icons";
+import { Icon } from "radix-ui";
 
 export default function Cart() {
   const cart = useCart();
+  const totalSum = () => {
+    let sum = 0;
+    cart.cartProducts.map((items, index) => {
+      sum = sum + items.totalPrice;
+    });
+    return sum;
+  };
+
+  const sum = totalSum();
 
   return (
     <Sheet>
@@ -61,26 +71,39 @@ export default function Cart() {
               <CartProduct key={product} product={product} />
             ))}
             {!cart.cartProducts.length && (
-              <div className="w-full h-full justify-center items-center">
-                <h1>No Data</h1>
-                <SheetTrigger className="relative" asChild>
-                  <Button>Go To Shop</Button>
-                </SheetTrigger>
+              <div className="h-[700px]">
+                <div className="flex flex-col w-full h-full justify-center items-center">
+                  <Icons.cart
+                    className="size-20 text-gray-700"
+                    aria-hidden="true"
+                  />
+                  <h1 className="text-center mt-6 animate-pulse">
+                    your cart is empty
+                  </h1>
+                  <a href="/" className="mt-3">
+                    <SheetTrigger asChild>
+                      <Button>Go To Shop</Button>
+                    </SheetTrigger>
+                  </a>
+                </div>
               </div>
             )}
           </ScrollArea>
           <div className="">
-            <SheetTrigger className="relative" asChild>
-              <Link
-                onClick={() => cart.checkoutProduct()}
-                className={cn(buttonVariants(), "w-full")}
-                href={{
-                  pathname: "/checkout",
-                }}
-              >
-                Checkout
-              </Link>
-            </SheetTrigger>
+            <h4 class="absolute left-0 bottom-0 w-full p-4 flex flex-wrap gap-4 text-base backdrop-blur-lg text-black">
+              Total <span class="ml-auto">{sum}</span>
+              <SheetTrigger className="relative" asChild>
+                <Link
+                  onClick={() => cart.checkoutProduct()}
+                  className={cn(buttonVariants(), "w-full ")}
+                  href={{
+                    pathname: "/checkout",
+                  }}
+                >
+                  Checkout
+                </Link>
+              </SheetTrigger>
+            </h4>
           </div>
         </SheetHeader>
       </SheetContent>

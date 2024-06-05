@@ -30,6 +30,9 @@ export default function CartProduct({ product }) {
             <X />
           </Button>
         </div>
+        <div>
+          <img src={product.image} alt="" />
+        </div>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">

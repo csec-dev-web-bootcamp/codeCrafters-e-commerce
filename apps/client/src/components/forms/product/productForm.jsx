@@ -30,6 +30,7 @@ import useMutation from "@app/client/hooks/use-mutation";
 import { useState } from "react";
 import { createProduct } from "@app/client/data/product.data";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { PlusCircle } from "lucide-react";
 
 export default function ProductForm({ categories }) {
   const { isMutating, startMutation } = useMutation();
@@ -88,9 +89,11 @@ export default function ProductForm({ categories }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-3/12">
-          <PlusCircledIcon />
-          ADD Products
+        <Button size="sm" className="h-8 gap-1 w-40">
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Product
+          </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

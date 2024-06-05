@@ -3,7 +3,18 @@ import React from "react";
 import PageTitle from "../PageTitle";
 import ProductForm from "../forms/product/productForm";
 import { DataTable } from "../DataTable";
+import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Icons } from "../icons";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { deleteProduct } from "@app/client/data/product.data";
+// import { Icons } from "@app/client/components/icons";
 
 const columns = [
   {
@@ -17,7 +28,7 @@ const columns = [
             src={row.getValue("image")}
             alt={row.getValue("name")}
           />
-          <p>{row.getValue("name")}</p>
+          <p className="">{row.getValue("name")}</p>
         </div>
       );
     },
@@ -30,17 +41,54 @@ const columns = [
     },
   },
   {
+    accessorKey: "description",
+    header: "Description",
+  },
+  {
     accessorKey: "price",
     header: "Price",
   },
   {
-    accessorKey: "",
-    header: "Delete",
+    accessorKey: "actions",
+    header: "Actions",
     cell: ({ row }) => {
-      return <Icons.cart className="size-6" aria-hidden="true" />;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button aria-haspopup="true" size="icon" variant="ghost">
+              {/* <Icons.MoreHorizontal className="h-4 w-4" /> */}
+              <DotsHorizontalIcon className=""></DotsHorizontalIcon>
+              <span className="sr-only">Toggle Actions Menu</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem onClick={() => handleEdit(row)}>
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleDelete(row)}>
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
     },
   },
 ];
+
+const handleEdit = (row) => {
+  console.log("Edit", row.original);
+};
+
+const handleDelete = async (row) => {
+  try {
+    await deleteProduct(row.original.id);
+    console.log("Delete", row.original.name + " deleted");
+  } catch (e) {
+    console.log(e);
+    console.log("Delete", row.original.name + " not deleted");
+  }
+};
 
 export default function AdminProduct({ categories, products }) {
   return (

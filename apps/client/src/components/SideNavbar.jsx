@@ -7,6 +7,7 @@ import {
   ShoppingCart,
   ChevronRight,
   UsersRound,
+  Package,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { LineChart } from "lucide-react";
@@ -57,7 +58,7 @@ export default function SideNavbar() {
           {
             title: "Products",
             href: "/admin/products",
-            icon: ShoppingCart,
+            icon: Package,
             variant: "ghost",
           },
 

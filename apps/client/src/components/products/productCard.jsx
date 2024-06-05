@@ -30,126 +30,115 @@ import { Button, buttonVariants } from "../ui/button";
 import { AspectRatio } from "../ui/aspect-ratio";
 import { Image } from "lucide-react";
 import ProductDetail from "./product-detail";
+import { useState } from "react";
 
-export function ProductsCard({ product, variant = "default" }) {
+export function ProductsCard({ products, variant = "default" }) {
   const cart = useCart();
   const [isAddingToCart, startAddingToCart] = React.useTransition();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const categories = [
+    { name: "mobile" },
+    { name: "laptops" },
+    { name: "Laptop" },
+    { name: "Hard Drive" },
+    { name: "Gaming Pcs" },
+    { name: "HeadPhones" },
+    { name: "Gaming Console" },
+    { name: "Gaming Laptops" },
+    { name: "Gaming Monitors" },
+  ];
+
   const isAdded = useMemo(() => {
-    return cart.cartProducts.find((prod) => prod.id === product.id);
+    return cart.cartProducts.find((prod) => prod.id === products.id);
   }, [cart.cartProducts]);
+
+  const filteredProducts = useMemo(() => {
+    if (!selectedCategory) return products;
+    return products.filter(
+      (product) => product.category.name === selectedCategory
+    );
+  }, [selectedCategory, products]);
 
   return (
     <div>
-      <Card className={cn("size-full overflow-hidden rounded-sm")}>
-        <CardHeader className="border-b p-0">
-          <AspectRatio ratio={4 / 3}>
-            {/* {product.image ? ( */}
-            <img
-              src={product.image}
-              alt={"A product image"}
-              className="h-full w-full object-contain object-center"
-              sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
-              fill
-              loading="lazy"
-            />
-            {/* ) : (
+      <div className="mb-5">
+        <Button
+          onClick={() => setSelectedCategory(null)}
+          className={`mr-2 ${selectedCategory === null ? "bg-gray-300" : ""}`}
+        >
+          All
+        </Button>
+        {categories.map((category) => (
+          <Button
+            key={category.name}
+            onClick={() => setSelectedCategory(category.name)}
+            className={`mr-2 ${
+              selectedCategory === category.name ? "bg-gray-300" : ""
+            }`}
+          >
+            {category.name}
+          </Button>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-">
+        {filteredProducts.map((product) => (
+          <Card className={cn("size-full  overflow-hidden rounded-sm")}>
+            <CardHeader className="border-b p-0  overflow-hidden">
+              <AspectRatio ratio={4 / 3}>
+                {/* {product.image ? ( */}
+                <img
+                  src={product.image}
+                  alt={"A product image"}
+                  className="h-full w-full object-contain object-center"
+                  sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
+                  fill
+                  loading="lazy"
+                />
+                {/* ) : (
               <PlaceholderImage className="rounded-none" asChild />
             )} */}
-          </AspectRatio>
-        </CardHeader>
-        <span className="sr-only">{product.name}</span>
+              </AspectRatio>
+            </CardHeader>
+            <span className="sr-only">{product.name}</span>
 
-        <CardContent className="space-y-4 p-4">
-          <div className="flex items-center justify-between">
-            <CardTitle className=" ">{product.name}</CardTitle>
-          </div>
-          <CardDescription className="line-clamp-1 mb-5">
-            {product.description}
-          </CardDescription>
-          <div className="mt-10">
-            <CardTitle className="line-clamp-1 text-xl">
-              {product.price}
-              <span className="text-sm ml-1 text-slate-400">Birr</span>
-            </CardTitle>
-          </div>
-        </CardContent>
+            <CardContent className="space-y-4 p-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-xl">{product.name}</CardTitle>
+              </div>
+              {/* <CardDescription className="line-clamp-1 mb-5 text-sm">
+                {product.description}
+              </CardDescription> */}
+              <div className="mt-10">
+                <CardTitle className="line-clamp-1 text-lg">
+                  {product.price}
+                  <span className="text-sm ml-1 text-slate-400">Birr</span>
+                </CardTitle>
+              </div>
+            </CardContent>
 
-        <CardFooter className="p-4 pt-1">
-          {/* {variant === "default" ? ( */}
-          <div className="flex w-full items-center space-x-2">
-            {/* <Button
-            aria-label="Add to cart"
-            size="sm"
-            className="h-8 w-full rounded-sm"
-            onClick={() => {
-              startAddingToCart(async () => {
-                try {
-                  await addToCart({
-                    productId: product.id,
-                    quantity: 1,
-                  });
-                  toast.success("Added to cart.");
-                } catch (err) {
-                  catchError(err);
-                }
-              });
-            }}
-            disabled={isAddingToCart}
-          >
-            {isAddingToCart && (
-              <Icons.spinner
-                className="mr-2 size-4 animate-spin"
-                aria-hidden="true"
-              />
-            )}
-            Add to cart
-          </Button> */}
-            <Button
-              aria-label={isAdded ? "Remove from cart" : "Add to cart"}
-              size="lg"
-              className="h-8 w-full rounded-sm"
-              onClick={() =>
-                isAdded
-                  ? cart.removeFromCart(product.id)
-                  : cart.addToCart(product)
-              }
-              disabled={isAddingToCart}
-            >
-              {isAdded ? (
-                <ResetIcon className="mr-2 size-4" aria-hidden="true" />
-              ) : (
-                <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-              )}
-              {isAdded ? "Remove From Cart" : "Add To Cart"}
-            </Button>
+            <CardFooter className="p-4 pt-1">
+              {/* {variant === "default" ? ( */}
+              <div className="flex w-full items-center space-x-2">
+                <Button
+                  aria-label={isAdded ? "Remove from cart" : "Add to cart"}
+                  size="lg"
+                  variant="outline"
+                  className="h-8 w-6/12 rounded-sm"
+                  onClick={() =>
+                    isAdded
+                      ? cart.removeFromCart(product.id)
+                      : cart.addToCart(product)
+                  }
+                  disabled={isAddingToCart}
+                ></Button>
 
-            <ProductDetail product={product} />
-          </div>
-          {/* // ) : ( */}
-          {/*  <Button
-          aria-label={isAdded ? "Remove from cart" : "Add to cart"}
-          size="sm"
-          className="h-8 w-full rounded-sm"
-          onClick={() =>
-            isAdded ? cart.removeFromCart(product.id) : cart.addToCart(product)
-          }
-          disabled={isAddingToCart}
-        >
-          {isAdded ? (
-            <Icons.spinner
-              className="mr-2 size-4 animate-spin"
-              aria-hidden="true"
-            />
-          ) : isAdded ? (
-            <CheckIcon className="mr-2 size-4" aria-hidden="true" />
-          ) : (
-            <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-          )}
-          {isAdded ? "Added" : "Add to cart"}
-        </Button> */}
-          {/* )} */}
-        </CardFooter>
-      </Card>
+                <ProductDetail product={product} />
+              </div>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
