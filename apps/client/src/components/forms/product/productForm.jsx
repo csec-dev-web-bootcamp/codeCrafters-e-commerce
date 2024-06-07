@@ -239,7 +239,7 @@ export default function ProductForm({ categories }) {
                 </div>
               </CardContent>
             </Card> */}
-            <div className="card px-2 py-2 border rounded-xl bg-slate-300">
+            <div className="card px-2 py-2 border rounded-xl bg-gray-100">
               <div className="border w-full h-[300px] rounded-xl mb-4">
                 <img
                   src={formState.image}

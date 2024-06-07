@@ -38,6 +38,7 @@ export const useCheckout = create(
 
           return state;
         }),
+
       removeFromCheckout: (id) =>
         set((state) => {
           const currentState = JSON.parse(JSON.stringify(state));
@@ -48,6 +49,11 @@ export const useCheckout = create(
 
           return currentState;
         }),
+
+      clearCheckout: () =>
+        set(() => ({
+          checkoutProducts: [],
+        })),
     }),
     {
       name: "checkoutProducts",

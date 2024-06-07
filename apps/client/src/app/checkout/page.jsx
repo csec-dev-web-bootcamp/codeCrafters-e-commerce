@@ -5,23 +5,9 @@ import { Icons } from "@app/client/components/icons";
 import { Button } from "@app/client/components/ui/button";
 import { Input } from "@app/client/components/ui/input";
 import { ScrollArea, ScrollBar } from "@app/client/components/ui/scroll-area";
+import { cn } from "@app/client/lib/utils";
 
 import { useCheckout } from "@app/client/stores/checkoutStore";
-
-export const works = [
-  {
-    artist: "Ornella Binni",
-    art: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    artist: "Tom Byrom",
-    art: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    artist: "Vladimir Malyavko",
-    art: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
-  },
-];
 
 export default function Checkout() {
   const check = useCheckout();
@@ -77,7 +63,11 @@ export default function Checkout() {
 
               <Button
                 type="submit"
-                className="w-4/12 mt-4 px-4 py-3.5"
+                onClick={() => check.clearCheckout()}
+                className="w-4/12 mt-4 px-4 py-3.5 "
+                href={{
+                  pathname: "/checkout",
+                }}
                 // type="button"
                 // class="mt-4 w-40 py-3.5 text-sm text-white rounded-md  tracking-wide"
               >
