@@ -1,6 +1,3 @@
-Certainly! Here is a template for a README file for your E-commerce website project. You can customize it to fit the specifics of your project.
-
----
 
 # CodeCrafters E-Commerce
 
