@@ -10,9 +10,6 @@ Welcome to CodeCrafters E-Commerce, a robust and user-friendly platform for buyi
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
 - [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
 ## Features
 
 - **User Authentication**: Secure user login and registration.
