@@ -8,6 +8,8 @@ import usersController from "./users/users.controller.js";
 import { httpExceptionHandler } from "./middlewares/http-exception-handler.js";
 import authController from "./auth/auth.controller.js";
 import categoriesController from "./categories/categories.controller.js";
+import orderController from "./orders/orders.controller.js";
+import orderItemsController from "./orderItems/orderItems.controller.js";
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use("/categories", categoriesController);
 app.use("/products", productsController);
 app.use("/auth", authController);
 app.use("/users", usersController);
+app.use("/orders", orderController);
+app.use("/orderItems", orderItemsController);
 
 app.all("*", (req, res) => {
   throw new HttpException("Not Found", 404);

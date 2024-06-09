@@ -32,10 +32,16 @@ import { Image } from "lucide-react";
 import ProductDetail from "./product-detail";
 import { useState } from "react";
 
-export function ProductsCard({ products, variant = "default" }) {
+export function ProductsCard({ products, users, variant = "default" }) {
+  console.log(users);
   const cart = useCart();
   const [isAddingToCart, startAddingToCart] = React.useTransition();
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isUserExist, setUserExist] = useState(null);
+
+  if (users === null) {
+    setUserExist(true);
+  }
 
   const categories = [
     { name: "mobile" },
