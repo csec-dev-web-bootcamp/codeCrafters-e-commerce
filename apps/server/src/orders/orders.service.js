@@ -65,12 +65,12 @@ export async function createOrders(data) {
 export async function getManyOrders(page = 1, limit = 10) {
   const skip = (page - 1) * limit;
   const orders = await prisma.order.findMany({
-    skip: skip,
-    take: limit,
+    // skip: skip,
+    // take: limit,
     include: {
       orderItems: {
         include: {
-          product: { include: { images: true } },
+          product: { select: { image: true } },
         },
       },
       billingAddress: true,
@@ -87,8 +87,8 @@ export async function getManyOrders(page = 1, limit = 10) {
   return {
     orders,
     totalOrders,
-    currentPage: page,
-    totalPages: Math.ceil(totalOrders / limit),
+    // currentPage: page,
+    // totalPages: Math.ceil(totalOrders / limit),
   };
 }
 

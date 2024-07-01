@@ -10,7 +10,7 @@ import {
 import { authGuard } from "../auth/auth.guard";
 import { asyncHandler } from "../common/async-handler";
 
-const orderItemsController = express();
+const orderItemsController = express.Router();
 
 orderItemsController.get(
   "/",
@@ -51,3 +51,5 @@ orderItemsController.delete(
     return res.json(order);
   })
 );
+
+export default orderItemsController;
