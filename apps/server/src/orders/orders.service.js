@@ -1,58 +1,95 @@
 import prisma from "../common/prisma-client";
 
-export default async function createOrders(data) {
-  // Logging the received data
-  console.log("Data received:", data);
+export async function createOrders(data) {
+  const orderData = {
+    paymentRef: data.paymentRef,
+    totalPrice: 0,
+    // billingAddressId: data.billingAddressId,
+    billingAddress: {
+      connect: { id: data.billingAddressId },
+    },
+    user: {
+      connect: {
+        id: data.userId,
+      },
+    },
+    orderItems: {
+      createMany: {
+        data: data.orderItems,
+        skipDuplicates: true,
+      },
+    },
+  };
 
-  if (!data.userId) {
-    throw new Error("userId is required to create an order");
-  }
-
-  // Check if the user exists
-  const userExists = await prisma.user.findUnique({
-    where: { id: data.userId },
+  let order = await prisma.order.create({
+    data: orderData,
+    include: {
+      orderItems: {
+        include: {
+          product: true,
+        },
+      },
+      user: {
+        select: {
+          firstName: true,
+          lastName: true,
+          email: true,
+          password: false,
+        },
+      },
+    },
   });
 
-  if (!userExists) {
-    throw new Error("User does not exist");
-  }
+  let totalPrice = 0;
+  order.orderItems.forEach((item) => {
+    totalPrice = item.totalPrice;
+  });
 
-  // Create the order
-  const order = await prisma.order.create({
+  order = await prisma.order.update({
+    where: { id: order.id },
     data: {
-      totalPrice: data.totalPrice,
-      paymentRef: data.paymentRef,
-      paymentStatus: data.paymentStatus,
-      user: {
-        connect: { id: data.userId }, // Connect to an existing user by userId
-      },
-      orderItems: {
-        create: data.orderItems.map((item) => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          totalPrice: item.totalPrice,
-        })),
-      },
+      totalPrice: totalPrice,
     },
     include: {
-      user: true,
-      orderItems: true,
+      orderItems: {
+        include: {
+          product: true,
+        },
+      },
     },
   });
-
-  // Logging the created order
-  console.log("Order created:", order);
 
   return order;
 }
 
-export async function getManyOrders() {
-  const order = await prisma.order.findMany({
+export async function getManyOrders(page = 1, limit = 10) {
+  const skip = (page - 1) * limit;
+  const orders = await prisma.order.findMany({
+    skip: skip,
+    take: limit,
     include: {
-      user: true,
+      orderItems: {
+        include: {
+          product: { include: { images: true } },
+        },
+      },
+      billingAddress: true,
+      user: {
+        select: {
+          email: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
     },
   });
-  return order;
+  const totalOrders = await prisma.order.count();
+  return {
+    orders,
+    totalOrders,
+    currentPage: page,
+    totalPages: Math.ceil(totalOrders / limit),
+  };
 }
 
 export async function getOneOrders(id) {

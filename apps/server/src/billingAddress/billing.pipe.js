@@ -1,10 +1,10 @@
 import { formatZodError } from "../common/format-zod-error";
 import { HttpException } from "../common/http-exception";
-import { createOrderSchema } from "./orderItems.validation";
+import { createAddressSchema } from "../billingAddress/billing.schema";
 
-export function createOrderPipe(req, res, next) {
+export function createAddressPipe(req, res, next) {
   const data = req.body;
-  const result = createOrderSchema.safeParse(data);
+  const result = createAddressSchema.safeParse(data);
   if (!result.success) {
     throw new HttpException(formatZodError(result.error), 400);
   }
@@ -12,9 +12,9 @@ export function createOrderPipe(req, res, next) {
   next();
 }
 
-export function updateOrderPipe(req, res, next) {
+export function updateAddressPipe(req, res, next) {
   const data = req.body;
-  const result = createOrderSchema.safeParse(data);
+  const result = createAddressSchema.safeParse(data);
   if (!result.success) {
     throw new HttpException(formatZodError(result.error), 400);
   }
